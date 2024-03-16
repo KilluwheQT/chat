@@ -19,7 +19,7 @@ class MyDrawer extends StatelessWidget {
 @override
 Widget build(BuildContext  context) {
   return Drawer(
-  backgroundColor: const Color.fromARGB(255, 231, 176, 212),
+  backgroundColor: Theme.of(context).colorScheme.background,
   child: Column(
     mainAxisAlignment: MainAxisAlignment.spaceBetween,
     children: [
@@ -78,7 +78,7 @@ Widget build(BuildContext  context) {
         leading: const Icon(Icons.logout),
         onTap: logout,
       ),
-    )
+    ),
 
     ],)
 );
