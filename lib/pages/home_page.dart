@@ -21,8 +21,13 @@ class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+            backgroundColor: Theme.of(context).colorScheme.background,
       appBar: AppBar(
         title: const Text("Home",),
+        backgroundColor: Colors.transparent,
+        foregroundColor: Colors.grey,
+        elevation: 0,
+
       ),
       drawer: const MyDrawer(),
       body: _buildUserList(),
@@ -36,7 +41,7 @@ class HomePage extends StatelessWidget {
         builder: (context, snapshot) {
           //error
         if (snapshot.hasError) {
-          return const Text("Eroor");
+          return const Text("Erorr");
         }
           //loading
         if (snapshot.connectionState == ConnectionState.waiting) {
@@ -62,6 +67,7 @@ class HomePage extends StatelessWidget {
             //tapped on a user -> go to chat page
             Navigator.push(context, MaterialPageRoute(builder: (context) => ChatPage(
               receiverEmail: userData["email"],
+              receiverID: userData["uid"],
             ),
              ));
 

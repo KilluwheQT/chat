@@ -2,6 +2,7 @@ import 'package:chat/models/message.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
+
 class ChatServices {
   //get instances of firestore
   
@@ -52,8 +53,8 @@ Stream<List<Map<String, dynamic>>> getUsersStream() {
     final Timestamp timestamp = Timestamp.now();
     // create a new message
    Message newMessage = Message(
-    senderID: currentUserEmail,
-    senderEmail: currentUserID,
+    senderID: currentUserID,
+    senderEmail: currentUserEmail,
     receiverID: receiverID,
     message: message,
     timestamp: timestamp,
@@ -64,11 +65,12 @@ Stream<List<Map<String, dynamic>>> getUsersStream() {
   List<String> ids = [currentUserID, receiverID];
   ids.sort();
   String chatRoomID = ids.join("_");
+
     //msg to db
-await _firestore
-        .collection('chats')
+      await _firestore
+        .collection("chat_rooms")
         .doc(chatRoomID)
-        .collection('messages')
+        .collection("messages")
         .add(newMessage.toMap());
   }
 
@@ -78,6 +80,12 @@ await _firestore
     ids.sort();
     String chatRoomID = ids.join('_');
 
-    return _firestore.collection("chat_rooms").doc(chatRoomID).collection("messages").orderBy("timestamp", descending: false).snapshots();
+    return _firestore
+    .collection("chat_rooms")
+    .doc(chatRoomID).collection("messages")
+    .orderBy("timestamp", descending: false)
+    .snapshots();
   }
+
+  
 }
